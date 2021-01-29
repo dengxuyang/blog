@@ -826,3 +826,9 @@ Object.keys(obj).forEach(key=>{
 })
 </script>
 ```
+## 视图不更新问题
+对于深层数据vue是无法监听到的，这时候就需要vue.$set去更新数据，有时vue.$set还是没有效果，就需要vue.$forceUpdate()重新渲染一下。  
+$set用法:
+```js
+this.$set(对象,需要更新的键,需要更新的值)
+```
