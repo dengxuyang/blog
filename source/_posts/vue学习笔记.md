@@ -832,3 +832,12 @@ $set用法:
 ```js
 this.$set(对象,需要更新的键,需要更新的值)
 ```
+## 解决elementui 表头重新计算的问题
+在动态加载表头时，由于表头导致表格计算不正确，造成的问题，需要调用doLayout()重新渲染表格
+```js
+ beforeUpdate(){
+    this.$nextTick(() => { //在数据加载完，重新渲染表格
+    this.$refs['multipleTable'].doLayout();
+    })
+},
+```
