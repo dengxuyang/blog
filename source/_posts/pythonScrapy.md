@@ -2,6 +2,8 @@
 title: python scrapy框架学习
 date: 2021-02-23 17:20:27
 tags: python
+categories:
+- python
 ---
 ## 安装
 首先我是在Windows平台，进行学习，所以安装和之后发生的问题和解决都是基于Windows，之后可能会在linux，但不是现在，主要记录学习的过程，总结经验。好，接下来，干！
