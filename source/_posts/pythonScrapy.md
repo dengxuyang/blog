@@ -17,7 +17,8 @@ set PATH=C:\Python27;%PATH%
 ```
 pip install Scrapy
 ```
-### 4.爬虫
+## 爬虫
+### 1.新建爬虫项目
 首先新建个文件夹执行
 ```
 scrapy startproject mySpider
