@@ -104,3 +104,8 @@ theme: hexo-theme-keep
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+search:
+  path: search.json
+  field: post
+  content: true
+  format: striptags
