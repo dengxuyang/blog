@@ -1,5 +1,5 @@
 ---
-title: git强制推送和拉取
+title: git
 date: 2021-01-26 19:44:02
 tags:
 categories:
