@@ -7,15 +7,35 @@ categories:
 ---
 当本地或远程仓库被破坏时可强制覆盖文件  
                                               
-强制拉取
+## 1.强制拉取
 ```
  git fetch --all && git reset --hard origin/master && git pull
 ```
-强制推送
+## 2.强制推送
 ```
 git push -f origin master
 ```
-初始化仓库
+## git初始化项目
+
+### 1.初始化仓库
 ```
 git init
+```
+### 2.remote
+```
+git remote add origin 仓库地址
+```
+### 3.从远程分支拉取master分支并与本地master分支合并
+```
+git pull origin master:master
+```
+### 4.提交本地分支到远程分支
+```
+git push -u origin master
+```
+### 5.将现有项目添加并提交上传
+```
+git add -A
+git commit -m ''
+git push --set-upstream origin master
 ```
