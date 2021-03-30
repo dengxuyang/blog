@@ -156,7 +156,7 @@ class PersonContorller {
 module.exports = PersonContorller.initRouter()
 ```
 ## 6.完成
-把router引入到app.js中,这样一个简单的MVC分层服务端框架就搭好了。
+把router引入到app.js中,这样一个简单的MVC分层服务端框架就搭好了[github地址](https://github.com/dengxuyang/node-express-mvc.git)。
 ```js
 const express = require('express')
 const  app = express();
