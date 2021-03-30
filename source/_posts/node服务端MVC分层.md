@@ -74,4 +74,107 @@ class DB {
 module.exports = new DB()
 ```
 ## 4.用class编写model层
-在model文件夹中新建personModel
+在model文件夹中新建personModel.js
+```js
+const db = require('../config/db')
+    //这里是person表的数据连接层
+class personModel {
+    //查找所有
+    findAll() {
+            return db.query('select * from tb_person', [])
+        }
+        //通过id查找
+    findById(id) {
+            return db.query('select * from tb_person where id = ?', [id])
+        }
+        //更新
+    update() {
+            //TODO
+        }
+        //删除
+    delete() {
+            //TODO
+        }
+        //添加
+    create() {
+        //TODO
+    }
+}
+module.exports = new personModel()
+```
+
+## 4.逻辑层service
+在service文件夹中创建personService.js
+```js
+//引入model
+const personModel = require('../model/personModel')
+
+//逻辑层
+class PersonService {
+    /**
+     * 获取全部数据
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
+    async getPerson(req, res, next) {
+        const { result } = await personModel.findAll()
+        res.json({ err_code: 0, message: result })
+    }
+    /**
+     * 通过id获取数据
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
+    async getPersonById(req, res, next) {
+        const id = req.params.id
+        const { result } = await personModel.findById(id)
+        res.json({ err_code: 0, message: result })
+    }
+}
+
+
+module.exports = new PersonService()
+```
+## 5.编写路由
+路由属于数据分发层，会把前端发来的请求分发到service层做处理。在router文件夹中新建路由页person.js。
+```js
+const express = require('express')
+const router = express.Router()
+const { getPerson, getPersonById } = require('../service/personService')
+
+class PersonContorller {
+    //class 静态资源
+    static initRouter() {
+        router.get('/', getPerson)
+        router.get('/:id', getPersonById)
+        return router
+    }
+}
+//把router暴露出去
+module.exports = PersonContorller.initRouter()
+```
+## 6.完成
+把router引入到app.js中,这样一个简单的MVC分层服务端框架就搭好了。
+```js
+const express = require('express')
+const  app = express();
+//引入路由
+const personRouter = require('./router/person')
+
+
+
+
+
+app.use('/person',personRouter)
+
+
+
+
+
+//监听9527端口
+app.listen(9527);
+console.log('服务启动成功,端口:9527');
+console.log('地址：http://127.0.0.1:9527');
+```
