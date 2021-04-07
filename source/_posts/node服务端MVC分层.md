@@ -5,11 +5,11 @@ tags:
 categories:
 - nodejs
 ---
-通过node+express写一个简单的mvc分层框架，大概思路就是，通过路由分发接口到服务层，封装mysql，用class方式写router和model层。
+通过node+express写一个简单的mvc分层框架，大概思路就是，通过路由分发接口到服务层，封装mysql，用class方式写router和model层。[github地址](https://github.com/dengxuyang/node-express-mvc.git)
 ## 1.目录结构
 * router 用来分发前端传来的接口
 * model 数据连接层
-* cinfig 连接数据库配置
+* config 连接数据库配置
 * service 业务逻辑层
 * app.js 项目入口
 ## 2.项目初始化
@@ -156,7 +156,7 @@ class PersonContorller {
 module.exports = PersonContorller.initRouter()
 ```
 ## 6.完成
-把router引入到app.js中,这样一个简单的MVC分层服务端框架就搭好了[github地址](https://github.com/dengxuyang/node-express-mvc.git)。
+把router引入到app.js中,这样一个简单的MVC分层服务端框架就搭好了。
 ```js
 const express = require('express')
 const  app = express();
