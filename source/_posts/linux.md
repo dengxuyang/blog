@@ -27,8 +27,14 @@ sudo systemctl restart nginx
 sudo nginx -s quit
 ```
 ## 5.linux开放指定端口命令
+* 查看端口是否打开
+```
+telnet ip 端口
+```
 * 开启防火墙   
+```
     systemctl start firewalld
+```
 
 * 开放指定端口  
 ```
@@ -50,4 +56,20 @@ firewall-cmd --reload
 netstat -ntlp   //查看当前所有tcp端口·  
 
 netstat -ntulp |grep 1935   //查看所有1935端口使用情况·
+```
+## 6.vim的基本使用命令
+使用vim 文件名进入文件 i进入插入模式 
+```
+:w 保存文件但不退出vi
+:w file 将修改另外保存到file中，不退出vi
+:w! 强制保存，不推出vi
+:wq 保存文件并退出vi
+:wq! 强制保存文件，并退出vi
+:q 不保存文件，退出vi
+:q! 不保存文件，强制退出vi
+:e! 放弃所有修改，从上次保存文件开始再编辑
+```
+## 7.查看磁盘占用
+```
+ df -h
 ```
