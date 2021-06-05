@@ -123,3 +123,11 @@ elif money<s:
 else:
     print('取款失败')
 ```
+### 条件表达式
+语法结构：x if 判断条件 else y
+运算规则：如果判断条件为true值为x false 值为 y
+```python
+answer = int(input('请输入数字'))
+
+val=10 if answer+8>10 else 5
+```

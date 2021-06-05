@@ -88,3 +88,87 @@ scrapy crawl itcast -o teachers.json
 ```
 这样一个简单的爬虫就写好了
 #### 持续更新中。。。。
+## vsCode中修改使用python的版本
+当我们的电脑中同时存在python2和python3的时候，如果需要指定一下python的版本
+* 打开设置
+搜索 python.pythonPath 在工作区tab下写入所需要的python地址
+![](/images/1622878155(1).png)
+## scrapy连接mongodb
+* 首先下载pymongo
+```
+pip install pymongo
+```
+* 在setting.py中启用管道
+前面代表管道名称，后面的数字代表优先级
+```python
+ITEM_PIPELINES = {
+   #'mySpider.pipelines.MyspiderPipeline': 301,
+   'mySpider.pipelines.ConnectMongodbPipeline': 300
+}
+```
+* 在pipelines.py中新建管道
+```python
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+from scrapy import Item
+import pymongo
+
+# useful for handling different item types with a single interface
+from itemadapter import ItemAdapter
+
+
+class ConnectMongodbPipeline:
+    def __init__(self):
+       
+        #链接mongodb数据库
+        self.myclient = pymongo.MongoClient('mongodb://localhost:27017/')
+        #选择数据库
+        self.mydb = self.myclient['dbmongo']
+        #选择集合
+        self.mycol = self.mydb["meituan"]
+        print('连接数据库成功！')
+        
+    
+    def process_item(self, item,spider):
+        print("-------------------------------------------")
+        self.mycol.insert_one(item)
+        print('数据插入成功')
+        return item
+     
+
+
+class MyspiderPipeline:
+    def process_item(self, item, spider):
+        return item
+
+```
+* 爬虫代码   
+这是一段抓取美团评论的代码
+```python
+import scrapy
+from mySpider.items import ItcastItem
+import json
+
+class Opp2Spider(scrapy.Spider):
+    name = 'itcast'
+    allowed_domains = ['meituan.com']
+    start_urls = ("https://www.meituan.com/ptapi/poi/getcomment?id=732340487&offset=0&pageSize=10&mode=0&sortType=1", )
+
+    def start_requests(self):
+        # for url in self.start_urls:
+        #     yield scrapy.Request(url,callback=self.parse)
+        print('start_requests()')
+     
+        for url in self.start_urls:
+            yield scrapy.Request(url)
+
+    def parse(self, response):
+        items = []
+        data=json.loads(response.text)
+        dataList=data['comments']
+        for item in dataList:
+            #把数据yield出去
+            yield item
+```
