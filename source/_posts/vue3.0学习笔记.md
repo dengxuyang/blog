@@ -155,6 +155,139 @@ new Proxy(data,{
         * slots：收到的插槽内容，相当于`this.slots`。
         * emit：分发自定义事件函数，相当于`this.$emie`。
 
+# os：普天同庆好消息 迎接vue3.2
+之前看过b站尤大的视频，谈vue3.0发展，知道SFC单文件组件也就是`.vue`文件，会迎来一波更新。首先就是`<script setup>`他来了，他来了，这波带来了什么呢？那就是不用写setup函数，也再也不用return了，具体写法就是这样的
+```js
+<template>
+    <div>
+        {{msg}}
+    </div>
+</template>
+<script setup>
+//defineProps 是编译器宏 是不用定义直接就能用的 官网也更新了可以看
+    const props = defineProps({
+        msg: String
+    })
+    const emit = defineEmits(['change', 'delete'])
+    console.log(props);
+    // setup code
+    </script>
+<style lang="">
 
+</style>
+```
+* 值得注意的就是defineProps、defineEmits，写上之后eslint会报错，我就直接在vuecongif中关掉了eslint
+* 还有style的动态值，也就是说你的变量可以直接用在style中了，也就是<b>状态驱动的动态 CSS</b>
+    * 单文件组件的 `<style>` 标签可以通过 v-bind 这一 CSS 函数将 CSS 的值关联到动态的组件状态上：
+    ```js
+     <script setup>
+        const theme = {
+        color: 'red'
+        }
+    </script>
 
+    <template>
+        <p>hello</p>
+    </template>
 
+    <style scoped>
+        p {
+        color: v-bind('theme.color');
+        }
+    </style>
+    ```
+你就说狠不狠吧 还有一些，我挑着我认为非常好的说，剩下的官方文档估计也更新了。大家各自学习吧！
+## 7.计算属性与监视
+
+### 1.computed函数
+
+- 与Vue2.x中computed配置功能一致
+
+- 写法
+
+  ```js
+  import {computed} from 'vue'
+  
+  setup(){
+      ...
+  	//计算属性——简写
+      let fullName = computed(()=>{
+          return person.firstName + '-' + person.lastName
+      })
+      //计算属性——完整
+      let fullName = computed({
+          get(){
+              return person.firstName + '-' + person.lastName
+          },
+          set(value){
+              const nameArr = value.split('-')
+              person.firstName = nameArr[0]
+              person.lastName = nameArr[1]
+          }
+      })
+  }
+  ```
+
+### 2.watch函数
+
+- 与Vue2.x中watch配置功能一致
+
+- 两个小“坑”：
+
+  - 监视reactive定义的响应式数据时：oldValue无法正确获取、强制开启了深度监视（deep配置失效）。
+  - 监视reactive定义的响应式数据中某个属性时：deep配置有效。
+  
+  ```js
+  //情况一：监视ref定义的响应式数据
+  watch(sum,(newValue,oldValue)=>{
+  	console.log('sum变化了',newValue,oldValue)
+  },{immediate:true})
+  
+  //情况二：监视多个ref定义的响应式数据
+  watch([sum,msg],(newValue,oldValue)=>{
+  	console.log('sum或msg变化了',newValue,oldValue)
+  }) 
+  
+  /* 情况三：监视reactive定义的响应式数据
+  			若watch监视的是reactive定义的响应式数据，则无法正确获得oldValue！！
+  			若watch监视的是reactive定义的响应式数据，则强制开启了深度监视 
+  */
+  watch(person,(newValue,oldValue)=>{
+  	console.log('person变化了',newValue,oldValue)
+  },{immediate:true,deep:false}) //此处的deep配置不再奏效
+  
+  //情况四：监视reactive定义的响应式数据中的某个属性
+  watch(()=>person.job,(newValue,oldValue)=>{
+  	console.log('person的job变化了',newValue,oldValue)
+  },{immediate:true,deep:true}) 
+  
+  //情况五：监视reactive定义的响应式数据中的某些属性
+  watch([()=>person.job,()=>person.name],(newValue,oldValue)=>{
+  	console.log('person的job变化了',newValue,oldValue)
+  },{immediate:true,deep:true})
+  
+  //特殊情况
+  watch(()=>person.job,(newValue,oldValue)=>{
+      console.log('person的job变化了',newValue,oldValue)
+  },{deep:true}) //此处由于监视的是reactive素定义的对象中的某个属性，所以deep配置有效
+  ```
+
+### 3.watchEffect函数
+
+- watch的套路是：既要指明监视的属性，也要指明监视的回调。
+
+- watchEffect的套路是：不用指明监视哪个属性，监视的回调中用到哪个属性，那就监视哪个属性。
+
+- watchEffect有点像computed：
+
+  - 但computed注重的计算出来的值（回调函数的返回值），所以必须要写返回值。
+  - 而watchEffect更注重的是过程（回调函数的函数体），所以不用写返回值。
+
+  ```js
+  //watchEffect所指定的回调中用到的数据只要发生变化，则直接重新执行回调。
+  watchEffect(()=>{
+      const x1 = sum.value
+      const x2 = person.age
+      console.log('watchEffect配置的回调执行了')
+  })
+  ```
