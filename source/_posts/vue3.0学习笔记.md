@@ -486,7 +486,7 @@ new Proxy(data,{
     </template>
     ```
 
-# 六、其他
+# 五、其他
 
 ## 1.全局API的转移
 
