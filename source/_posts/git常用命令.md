@@ -39,3 +39,7 @@ git add -A
 git commit -m ''
 git push --set-upstream origin master
 ```
+### 6.更新远程分支列表
+git remote update origin --prune
+
+git remote update origin -p
