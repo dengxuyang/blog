@@ -40,6 +40,12 @@ git commit -m ''
 git push --set-upstream origin master
 ```
 ### 6.更新远程分支列表
+```
 git remote update origin --prune
 
 git remote update origin -p
+```
+### 中断一次合并
+```
+git merge --abort
+```
