@@ -1,5 +1,5 @@
 ---
-title: vue学习笔记
+title: vue2.0学习笔记
 date: 2021-01-23 21:00:03
 tags:
 categories:
@@ -772,6 +772,9 @@ const {add,mul} = require('./mathutils')
 1. url hash
 2. history.pushState 入栈和出栈的阶段 replaceState是不能返回的
 3. history.back()、history.forward和history.go(-1)
+* *在使用history模式的时候，项目打包后刷新页面会404 
+主要原因是后端对这个虚拟的前端路由没有做任何处理，服务器在找不到指定路径下的资源时，只能向客户端返回404。  
+需要后端配合 Apache或者nginx重写一下一直 如 leibo.group/app/.... 重写为 leibo.group/app/index.html
 ```js
 //请求接口封装
 import axios from 'axios'
