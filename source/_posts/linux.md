@@ -73,3 +73,8 @@ netstat -ntulp |grep 1935   //查看所有1935端口使用情况·
 ```
  df -h
 ```
+## 虚拟机开启 ens33 查看ip
+```
+nmcli c up ens33
+ifconfig
+```
