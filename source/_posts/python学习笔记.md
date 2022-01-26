@@ -131,4 +131,17 @@ answer = int(input('请输入数字'))
 
 val=10 if answer+8>10 else 5
 ```
-## 测试gitee
+### pass语句
+语句什么都不做，只是一个占位符，用在语法上需要语句的地方
+  * if语句的条件执行体
+  * for in 语句的循环体
+  * 定义函数时的函数体
+### 内置函数range()
+* range 用于生成一个整数序列
+* 创建range对象的三种方式
+    * range(stop)
+    * range(start,stop)
+    * range(start,stop,step)
+* 返回值是一个迭代器对象
+* range类型的优点: 不管range对象表示的整数序列有多长，所有range对象占用的内存空间都是相同的，因为仅仅需要储存start，stop和step，只有当用到range对象时，才会去计算序列中的相关元素
+* in 与 not in判断整数序列中是否存在指定的整数
