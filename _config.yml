@@ -7,7 +7,7 @@ title: Hexo
 subtitle: ''
 description: ''
 keywords:
-author: John Doe
+author: dxy
 language: zh-CN
 timezone: ''
 
@@ -41,7 +41,8 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
+use_date_for_updated: false
 relative_link: false
 future: true
 highlight:
