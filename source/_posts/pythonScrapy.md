@@ -92,7 +92,7 @@ scrapy crawl itcast -o teachers.json
 当我们的电脑中同时存在python2和python3的时候，如果需要指定一下python的版本
 * 打开设置
 搜索 python.pythonPath 在工作区tab下写入所需要的python地址
-![](../images/1622878155(1).png)
+![](/blog/images/1622878155(1).png)
 ## scrapy连接mongodb
 * 首先下载pymongo
 ```

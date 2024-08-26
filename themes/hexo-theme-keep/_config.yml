@@ -37,7 +37,7 @@ style:
   # First screen
   first_screen:
     enable: true
-    background_img: /images/bg.svg   # You can use local image or image external link
+    background_img: /blog/images/bg.svg   # You can use local image or image external link
     description: 懒惰是程序员第一生产力
 
   # Scroll style settings
