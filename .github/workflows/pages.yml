@@ -20,6 +20,8 @@ jobs:
           # Examples: 20, 18.19, >=16.20.2, lts/Iron, lts/Hydrogen, *, latest, current, node
           # Ref: https://github.com/actions/setup-node#supported-version-syntax
           node-version: "8"
+      - name: Set NPM registry to official
+        run: npm config set registry https://registry.npmjs.org/
       - name: Cache NPM dependencies
         uses: actions/cache@v4
         with:
