@@ -49,3 +49,11 @@ git remote update origin -p
 ```
 git merge --abort
 ```
+### 新增远程地址
+```
+ git remote add origin 地址
+```
+### 设置远程地址
+```
+git remote set-url origin 地址
+```
